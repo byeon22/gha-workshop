@@ -1,38 +1,40 @@
-name: Continous Integration
+name: Continuos Integration
 
+# on 의미: pull_request를 할 때 yml 파일을 실행한다
 on:
   pull_request:
     branches:
       - develop
-      
+
 jobs:
+  # hello랑 goodbye는 동시에 동작 시작, 병렬/직렬 둘다 가능 
   hello:
     runs-on: ubuntu-latest
 
     steps:
       - name: Print Hello World
         run: echo "Hello, World!"
-
+    
   goodbye:
     runs-on: ubuntu-latest
 
     steps:
       - name: Print Goodbye World
         run: echo "Goodbye, World!"
-
+      
   build:
     runs-on: ubuntu-latest
-    needs: goodbye
-    env: 
+    needs: goodbye # goodbye 실행 후 build 실행(goodbye가 선행 작업)
+    env:
       DISABLE_ESLINT_PLUGIN: true
     
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
-      
-      - name: Setup Node
+        uses: actions/checkout@v2 # 레포지토리에 있는 걸 쓰기위해서 땡겨온다는 뜻
+
+      - name: Setup Mode
         uses: actions/setup-node@v3.5.1
-        with:
+        with: 
           node-version: "16.18.0"
       
       - name: Run Build
