@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd /usr/src/gha-workshop
-	    git pull origin develop
-	    npm install
-	    npm run build
-	    sudo systemctl restart nginx
+            git pull origin develop
+            npm install
+            npm run build
+            sudo systemctl restart nginx
